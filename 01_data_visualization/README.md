@@ -68,5 +68,5 @@ The script relies on the following Python libraries:
 ### 3. Execution
 To run the script:
 ```python
-python bee_gorsellestirme.py
+python analyze_bee_dataset.py
 ```
