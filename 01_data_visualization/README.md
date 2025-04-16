@@ -7,6 +7,8 @@ This directory contains scripts and outputs for visualizing the Bee Dataset. Bel
 ## Purpose
 The script `analyze_bee_dataset.py` analyzes the dataset and generates visualizations to better understand the distribution of features (e.g., wasps, varroa mites, pollen) across the dataset. It also provides statistical insights into the dataset's composition.
 
+The script `image_comprasion.py` creates side-by-side visual comparisons of ensemble predictions and model outputs. Matching images from two folders are combined into a single high-resolution `.jpg`, saved to `comparison_output`.
+
 ---
 
 ## Key Outputs
@@ -63,10 +65,16 @@ The script performs the following steps:
 
 ### 2. Dependencies
 The script relies on the following Python libraries:
-- `matplotlib.pyplot` (for plotting)
+- `matplotlib`
+- `numpy`
+- `PIL`
 
 ### 3. Execution
 To run the script:
-```python
+```bash
 python analyze_bee_dataset.py
+```
+
+```bash
+python compare_ensemble_outputs.py
 ```
