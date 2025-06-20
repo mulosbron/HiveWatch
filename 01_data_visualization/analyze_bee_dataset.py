@@ -1,3 +1,10 @@
+"""
+This script loads BeeDataset/data.json, filters out entries under cooling,
+computes counts of images containing wasps, varroa, and pollen in all combinations,
+categorizes each image into one of eight feature-based groups,
+and for each group saves a grid of sample images to the `analysis_results` folder.
+"""
+
 import json
 import os
 import random
