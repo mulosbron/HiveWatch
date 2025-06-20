@@ -1,3 +1,11 @@
+"""
+This script performs object detection using a pre-trained YOLO model on all image files found in subdirectories.
+It processes each image, applies the YOLO model to detect objects, and saves:
+1. A labeled `.txt` file in YOLO format containing bounding box and class data.
+2. An annotated copy of the image with drawn bounding boxes and class labels.
+The results are saved in parallel output folders next to the original directories.
+"""
+
 import os
 import cv2
 import numpy as np
@@ -6,10 +14,10 @@ from ultralytics import YOLO
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 CONFIG = {
-    "model_path": os.path.join(CURRENT_DIR, "..", "..", "04_model_training", "runs", "detect", "bee_wasp_model_50_640",
+    "model_path": os.path.join(CURRENT_DIR, "..", "..", "03_model_training", "runs", "detect", "pollen_varroa_model_50_640_pre",
                                "weights", "best.pt"),
-    "base_dir": os.path.join(CURRENT_DIR, "classified_output2"),
-    "conf_threshold": 0.4,
+    "base_dir": os.path.join(CURRENT_DIR, "missing_images_copy"),
+    "conf_threshold": 0.6,
     "image_extensions": {'.jpg', '.jpeg', '.png', '.bmp', '.tif', '.tiff', '.webp'},
     "output_folder_suffix": "_yolo",
 }
@@ -35,7 +43,7 @@ def process_images_in_directory(model_path, base_dir, conf_threshold=0.4):
                 continue
 
             total_folders += 1
-            print(f"\n[INFO] Found {len(image_files)} images in folder: {root}")
+            print(f"[INFO] Found {len(image_files)} images in folder: {root}")
 
             folder_name = os.path.basename(root)
             yolo_folder = os.path.join(os.path.dirname(root), f"{folder_name}{CONFIG['output_folder_suffix']}")
@@ -56,7 +64,7 @@ def process_images_in_directory(model_path, base_dir, conf_threshold=0.4):
             for i, image_file in enumerate(image_files):
                 try:
                     image_path = os.path.join(root, image_file)
-                    print(f"[PROGRESS] ({i + 1}/{len(image_files)}) Processing: {image_file}")
+                    print(f"[PROG] ({i + 1}/{len(image_files)}) Processing: {image_file}")
 
                     frame = cv2.imread(image_path)
                     if frame is None:

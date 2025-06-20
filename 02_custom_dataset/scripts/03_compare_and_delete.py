@@ -1,10 +1,17 @@
+"""
+This script is designed to clean up mismatched YOLO label files in an image-label dataset.
+It compares image files and label files by their base filenames (excluding extensions), and deletes
+label files that do not have a corresponding image file. This is especially useful for maintaining
+consistency in YOLO training datasets.
+"""
+
 import os
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 CONFIG = {
-    "images_dir": os.path.join(CURRENT_DIR, "..", "bee_vs_wasp_yolo", "images"),
-    "labels_dir": os.path.join(CURRENT_DIR, "..", "bee_vs_wasp_yolo", "labels"),
+    "images_dir": os.path.join(CURRENT_DIR, "..", "pollen_vs_varroa_yolo", "images"),
+    "labels_dir": os.path.join(CURRENT_DIR, "..", "pollen_vs_varroa_yolo", "labels"),
     "image_extensions": {'.jpg', '.jpeg', '.png', '.bmp', '.tif', '.tiff', '.webp'},
     "label_extension": ".txt",
 }

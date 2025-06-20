@@ -1,3 +1,9 @@
+"""
+This script analyzes image files in a specified directory to calculate the average of the maximum dimension
+(width or height) of each image. It helps assess the general resolution range of the dataset,
+which can be useful for resizing, preprocessing, or model input decisions.
+"""
+
 import os
 from PIL import Image
 

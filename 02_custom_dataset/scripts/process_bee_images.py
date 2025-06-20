@@ -1,3 +1,10 @@
+"""
+This script reads image metadata from a JSON file and classifies images into custom-defined categories
+based on label conditions (e.g., varroa presence, pollen presence).
+It processes multiple image resolution folders, applies classification logic, and copies matching images
+into a target output folder with a new filename format that includes resolution and class label.
+"""
+
 import os
 import json
 import shutil

@@ -1,3 +1,10 @@
+"""
+This script identifies and optionally deletes a user-defined number of background image-label pairs
+from a YOLO dataset, where background refers to label files that are empty (i.e., containing no objects).
+It scans the label directory for empty `.txt` files, checks for their corresponding images,
+and deletes both files if confirmed.
+"""
+
 import os
 import random
 import glob

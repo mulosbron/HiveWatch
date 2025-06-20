@@ -1,17 +1,21 @@
+"""
+This script scans a specified image directory for duplicate images by computing the MD5 hash of each file's content.
+If duplicate images are found (i.e., files with identical content), they are moved into separate folders
+named after their hash value.This helps in organizing datasets and removing redundancy for more efficient
+machine learning workflows.
+"""
+
 import os
 import shutil
 import hashlib
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-IMG_DIR = os.path.join(PROJECT_ROOT, '03_custom_dataset', 'bee_vs_wasp_yolo', 'images')
+IMG_DIR = os.path.join(CURRENT_DIR, 'BeeWVarroa')
 
 CONFIG = {
     "img_dir": IMG_DIR,
     "valid_extensions": ['.jpg', '.jpeg', '.png'],
-    "current_dir": CURRENT_DIR
 }
 
 
@@ -33,7 +37,7 @@ def compute_hash(file_path):
 def main():
     try:
         print("[INFO] Starting duplicate image detection process")
-        print(f"[INFO] Current directory: {CONFIG['current_dir']}")
+        print(f"[INFO] Current directory: {CURRENT_DIR}")
         print(f"[INFO] Image directory: {CONFIG['img_dir']}")
 
         if not os.path.exists(CONFIG["img_dir"]):

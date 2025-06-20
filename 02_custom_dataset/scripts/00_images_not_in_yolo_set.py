@@ -1,3 +1,10 @@
+"""
+This script scans through multiple source directories to identify image files that are missing from a
+target directory. For each missing image, it copies the original image into a separate "missing_images_copy" folder
+for further inspection or recovery. This is particularly useful for synchronizing datasets or recovering
+files that were unintentionally left out.
+"""
+
 import os
 import shutil
 

@@ -1,3 +1,13 @@
+"""
+This script automates the process of downloading images from Google Images using Selenium and BeautifulSoup.
+It performs a search query, scrolls the page to load more results, extracts image URLs, and downloads them while:
+- Avoiding duplicates by hashing each image,
+- Converting images to JPEG if needed,
+- Naming files with a consistent prefix and index.
+
+It is useful for building custom image datasets for training machine learning models.
+"""
+
 import requests
 from bs4 import BeautifulSoup
 import os
@@ -14,13 +24,13 @@ import io
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 CONFIG = {
-    "download_dir_name": "BeeWPollen",
+    "download_dir_name": "Bee",
     "num_images_to_download": 100,
     "scroll_pause_time": 3,
     "user_agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
     "headless": True,
-    "file_prefix": "beewpollen6",
-    "search_query": "bumblebee with pollen balls"
+    "file_prefix": "beewvarroa3",
+    "search_query": "varroa mite"
 }
 
 
@@ -36,7 +46,7 @@ def extract_image_urls(driver):
     try:
         page_source = driver.page_source
         soup = BeautifulSoup(page_source, 'html.parser')
-        pattern = re.compile(r'\"(https:\/\/[^"]+\.(?:jpg|png|jpeg|webp))\"')
+        pattern = re.compile(r'\"(https://[^"]+\.(?:jpg|png|jpeg|webp))\"')
         matches = pattern.findall(str(soup))
         unique_urls = list(set(matches))
         cleaned_urls = [url.replace('\\', '') for url in unique_urls]

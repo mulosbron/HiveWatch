@@ -1,3 +1,9 @@
+"""
+This script reads image filenames from the source directory defined in CONFIG,
+searches for them in the search directory, copies any found files into the
+target directory, and logs INFO/WARNING/ERROR messages to the console.
+"""
+
 import os
 import shutil
 

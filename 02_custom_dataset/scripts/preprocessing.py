@@ -1,3 +1,11 @@
+"""
+This script preprocesses a YOLO dataset by:
+1. Applying Gaussian blur and normalizing image pixels.
+2. Resizing images with letterbox padding to a fixed square size.
+3. Adjusting and saving YOLO labels to match the new image dimensions.
+Processed images, labels, and a YAML config summary are written in parallel.
+"""
+
 import os
 import cv2
 import numpy as np
@@ -9,7 +17,7 @@ import yaml
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 CONFIG = {
-    "data_dir": os.path.join(CURRENT_DIR, "..", "03_custom_dataset", "pollen_vs_varroa_yolo"),
+    "data_dir": os.path.join(CURRENT_DIR, "..", "02_custom_dataset", "pollen_vs_varroa_yolo"),
     "source_img_dir": None,
     "source_label_dir": None,
     "output_dir": None,

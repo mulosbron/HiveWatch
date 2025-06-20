@@ -1,3 +1,11 @@
+"""
+This script locates valid background images in `background_images`, copies them into
+`background_images_processed/imgs`, and generates empty YOLO label files in
+`background_images_processed/labels` for each image. It ensures output directories
+exist and reports progress for each file processed. Use it to prepare background-only
+samples for object detection training.
+"""
+
 import os
 import shutil
 

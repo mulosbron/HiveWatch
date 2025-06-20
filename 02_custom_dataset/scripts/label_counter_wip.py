@@ -1,10 +1,17 @@
+"""
+This script analyzes YOLO-format label files in a specified directory and counts the occurrences of each class:
+bee (0), wasp (1), pollen (2), and varroa (3). It also tracks how many label files are empty (background only).
+The script provides a summary of total files, labeled files, and per-class counts, which is helpful for
+evaluating dataset balance and distribution.
+"""
+
 import os
 import glob
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 CONFIG = {
-    "data_dir": os.path.join(CURRENT_DIR, "..", "bee_vs_wasp_yolo"),
+    "data_dir": os.path.join(CURRENT_DIR, "..", "bee_vs_wasp_yolo", "images"),
     "label_dir": os.path.join(CURRENT_DIR, "..", "bee_vs_wasp_yolo", "labels"),
 }
 
@@ -119,7 +126,7 @@ def main():
         results = count_labels(label_dir)
 
         if results:
-            print(f"\n[INFO] Analysis Results:")
+            print(f"[INFO] Analysis Results:")
             print(f"[INFO] Total files: {results['total_files']}")
             print(f"[INFO] Files with labels: {results['files_with_labels']}")
             print(f"[INFO] Bee labels: {results['bee_count']}")
