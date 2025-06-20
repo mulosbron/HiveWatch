@@ -1,3 +1,11 @@
+"""
+This script evaluates a trained YOLO model on any YOLO-formatted dataset by:
+1. Computing class distribution and object size statistics.
+2. Performing error analysis and IoU distribution.
+3. Plotting precision–recall curves and confusion matrices.
+4. Exporting overall and per-class precision, recall, and F1 metrics to JSON.
+"""
+
 import os
 import time
 import numpy as np
@@ -14,13 +22,13 @@ import logging
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 CONFIG = {
-    "data_dir": os.path.join(CURRENT_DIR, "..", "03_custom_dataset", "bee_vs_wasp_yolo"),
-    "output_dir": os.path.join(CURRENT_DIR, "..", "03_custom_dataset", "bee_vs_wasp_yolo", "yolo_dataset"),
-    "model_path": os.path.join(CURRENT_DIR, "..", "04_model_training", "runs", "detect", "bee_wasp_model_75_640",
+    "data_dir": os.path.join(CURRENT_DIR, "..", "02_custom_dataset", "bee_vs_wasp_yolo"),
+    "output_dir": os.path.join(CURRENT_DIR, "..", "02_custom_dataset", "bee_vs_wasp_yolo", "yolo_dataset"),
+    "model_path": os.path.join(CURRENT_DIR, "..", "03_model_training", "runs", "detect", "pollen_varroa_model_50_640_pre",
                                "weights", "best.pt"),
     "plot_style": 'seaborn-v0_8-darkgrid',
     "classes": ["bee", "wasp"],
-    "analysis_output_dir": os.path.join(CURRENT_DIR, "analysis"),
+    "analysis_output_dir": os.path.join(CURRENT_DIR, "pollen_varroa_model_50_640_pre_analysis"),
     "conf_threshold": 0.4,
     "iou_threshold": 0.5,
     "sample_size": 100,
