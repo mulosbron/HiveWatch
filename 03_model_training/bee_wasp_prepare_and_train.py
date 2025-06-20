@@ -9,19 +9,21 @@ from ultralytics import YOLO
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 CONFIG = {
-    "data_dir": r"C:\Users\duggy\OneDrive\Belgeler\Github\HiveWatch\03_custom_dataset\bee_vs_wasp_yolo",
-    "img_dir": r"C:\Users\duggy\OneDrive\Belgeler\Github\HiveWatch\03_custom_dataset\bee_vs_wasp_yolo\images",
-    "label_dir": r"C:\Users\duggy\OneDrive\Belgeler\Github\HiveWatch\03_custom_dataset\bee_vs_wasp_yolo\labels",
-    "output_dir": r"C:\Users\duggy\OneDrive\Belgeler\Github\HiveWatch\03_custom_dataset\bee_vs_wasp_yolo\yolo_dataset",
+    "data_dir": os.path.join(CURRENT_DIR, "..", "02_custom_dataset", "bee_vs_wasp_yolo"),
     "image_extensions": ['.jpg', '.jpeg', '.png', '.webp', '.bmp', '.tiff', '.tif', '.gif', '.ppm'],
-    "current_dir": CURRENT_DIR
+    "model_name": "bee_wasp_model_75_640_sil",
+    "epochs": 75,
+    "image_size": 640,
 }
+
+CONFIG["img_dir"] = os.path.join(CONFIG["data_dir"], "images")
+CONFIG["label_dir"] = os.path.join(CONFIG["data_dir"], "labels")
+CONFIG["output_dir"] = os.path.join(CONFIG["data_dir"], "yolo_dataset")
 
 os.makedirs(CONFIG["output_dir"], exist_ok=True)
 
 
 def create_dataset_config():
-    # Çıktı dizinlerini hazırla
     os.makedirs(os.path.join(CONFIG["output_dir"], "train", "images"), exist_ok=True)
     os.makedirs(os.path.join(CONFIG["output_dir"], "train", "labels"), exist_ok=True)
     os.makedirs(os.path.join(CONFIG["output_dir"], "val", "images"), exist_ok=True)
@@ -35,7 +37,6 @@ def create_dataset_config():
 
     num_images = len(all_images)
 
-    # Karıştırma
     random.shuffle(all_images)
 
     # 70% train, 20% validation, 10% test
@@ -64,7 +65,7 @@ def create_dataset_config():
                 src_label = os.path.join(CONFIG["label_dir"], label_file)
                 dst_label = os.path.join(CONFIG["output_dir"], destination, "labels", label_file)
 
-                if os.path.exists(src_label) and not os.path.exists(dst_label):  # Label dosyası varsa
+                if os.path.exists(src_label) and not os.path.exists(dst_label):
                     shutil.copy(src_label, dst_label)
             except Exception as e:
                 print(f"[ERROR] Error: Problem copying file {img_file}: {e}")
@@ -84,11 +85,9 @@ def create_dataset_config():
     else:
         print("[INFO] Test files already copied, skipping.")
 
-    # classes.txt dosyasını okuma
     with open(os.path.join(CONFIG["label_dir"], "classes.txt"), "r") as f:
         classes = [line.strip() for line in f.readlines()]
 
-    # YAML konfigürasyon dosyası oluşturma
     dataset_config = {
         'path': CONFIG["output_dir"],
         'train': os.path.join(CONFIG["output_dir"], "train", "images"),
@@ -98,7 +97,6 @@ def create_dataset_config():
         'nc': len(classes)
     }
 
-    # YAML dosyasına kaydetme
     config_path = os.path.join(CONFIG["output_dir"], "dataset.yaml")
     with open(config_path, "w") as f:
         yaml.dump(dataset_config, f)
@@ -109,11 +107,10 @@ def create_dataset_config():
 
 
 def train_model():
-    # Veri seti konfigürasyonu oluştur
     config_path, classes = create_dataset_config()
 
     model_folder = os.path.join('runs', 'detect')
-    model_name = 'bee_wasp_model_75_640'  # Sabit model adı yerine değişken
+    model_name = CONFIG["model_name"]
     model_path = os.path.join(model_folder, model_name, 'weights', 'last.pt')
     resume_training = os.path.exists(model_path)
 
@@ -129,38 +126,37 @@ def train_model():
 
     model.train(
         data=config_path,
-        epochs=75,
-        imgsz=640,
-        batch=4,
-        workers=6,
+        epochs=CONFIG["epochs"],
+        imgsz=CONFIG["image_size"],
+        batch=2,
+        workers=4,
         device='cuda',
         name=model_name,
         exist_ok=True,
         resume=resume_param,
 
-        augment=True,  # Rastgele augmentasyon aktif [[1]]
-        mosaic=1.0,  # Mosaic augmentasyonu (arka plan gürültüsüne dayanıklılık) [[5]]
-        mixup=0.3,  # Mixup ↑ (sınıf sınırlarını netleştirir) [[5]]
-        hsv_h=0.02,  # Hue augmentasyonu ↑ (sınıf ayırt etmeyi güçlendirir) [[1]][[7]]
-        hsv_s=0.8,  # Doygunluk augmentasyonu ↑ [[1]]
-        hsv_v=0.5,  # Parlaklık augmentasyonu ↑ [[1]]
-        flipud=0.2,  # Dikey çevirme (sınıf genellemesi) [[1]]
-        fliplr=0.5,  # Yatay çevirme (sınıf genellemesi) [[1]]
+        augment=True,  # Random augmentation active
+        mosaic=1.0,  # Mosaic augmentation (resistance to background noise)
+        mixup=0.3,  # Mix-up (clarifies class boundaries)
+        hsv_h=0.02,  # Hue augmentation (enhances class discrimination)
+        hsv_s=0.8,  # Saturation augmentation
+        hsv_v=0.5,  # Brightness augmentation
+        flipud=0.2,  # Vertical flipping (class generalization)
+        fliplr=0.5,  # Horizontal flipping (class generalization)
 
-        scale=0.7,  # Ölçeklendirme aralığı ↑ (kutu ölçek varyasyonu) [[7]]
-        translate=0.2,  # Kaydırma oranı ↑ (pozisyon hassasiyeti) [[7]]
+        scale=0.7,  # Scaling range (box scale variation)
+        translate=0.2,  # Translation ratio (position sensitivity)
 
-        lr0=0.001,  # Başlangıç LR ↑ (daha agresif öğrenme) [[5]]
-        lrf=0.01,  # Son LR çarpanı (yavaş öğrenme sonu) [[5]]
-        cos_lr=True,  # Kosinüs LR planı (stabil son aşamalar) [[5]]
-        warmup_epochs=5,  # Warmup süresi (başlangıç stabilitesi) [[5]]
-        warmup_momentum=0.9,  # Momentum ↑ (genelleme için) [[5]]
-        warmup_bias_lr=0.1,  # Bias katman LR (başlangıçta hızlı öğrenme) [[5]]
+        lr0=0.001,  # Initial LR (more aggressive learning)
+        lrf=0.01,  # Final LR multiplier (slow end of learning)
+        cos_lr=True,  # Cosine LR schedule (stable final stages)
+        warmup_epochs=5,  # Warmup duration (initial stability)
+        warmup_momentum=0.9,  # Momentum (for generalization)
+        warmup_bias_lr=0.1,  # Bias layer LR (fast learning at beginning)
 
-        patience=5  # Erken durdurma sabrı ↑ (overfit önlemek) [[5]]
+        patience=10  # Early stopping patience (prevent overfitting)
     )
 
-    # Sınıf isimlerini bir dosyaya kaydet (evaluate_model.py için)
     with open(os.path.join(CONFIG["output_dir"], "classes.txt"), "w") as f:
         for class_name in classes:
             f.write(f"{class_name}\n")
@@ -170,7 +166,7 @@ def train_model():
 
 def main():
     print("[INFO] Bee vs WaspHive Object Detection - Model Training")
-    print(f"[INFO] Current directory: {CONFIG['current_dir']}")
+    print(f"[INFO] Current directory: {CURRENT_DIR}")
     print(f"[INFO] Data directory: {CONFIG['data_dir']}")
     print(f"[INFO] Output directory: {CONFIG['output_dir']}")
 

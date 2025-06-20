@@ -9,20 +9,21 @@ from ultralytics import YOLO
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 CONFIG = {
-    "data_dir": r"C:\Users\duggy\OneDrive\Belgeler\Github\HiveWatch\03_custom_dataset\pollen_vs_varroa_yolo",
-    "img_dir": r"C:\Users\duggy\OneDrive\Belgeler\Github\HiveWatch\03_custom_dataset\pollen_vs_varroa_yolo\images",
-    "label_dir": r"C:\Users\duggy\OneDrive\Belgeler\Github\HiveWatch\03_custom_dataset\pollen_vs_varroa_yolo\labels",
-    "output_dir": r"C:\Users\duggy\OneDrive\Belgeler\Github\HiveWatch\03_custom_dataset\pollen_vs_varroa_yolo\yolo_dataset",
+    "data_dir": os.path.join(CURRENT_DIR, "..", "02_custom_dataset", "pollen_vs_varroa_yolo"),
     "image_extensions": ['.jpg', '.jpeg', '.png', '.webp', '.bmp', '.tiff', '.tif', '.gif', '.ppm'],
-    "current_dir": CURRENT_DIR,
-    "model_name": "pollen_varroa_model_50_640_pre"
+    "model_name": "pollen_varroa_model_50_320",
+    "epochs": 50,
+    "image_size": 320,
 }
+
+CONFIG["img_dir"] = os.path.join(CONFIG["data_dir"], "images")
+CONFIG["label_dir"] = os.path.join(CONFIG["data_dir"], "labels")
+CONFIG["output_dir"] = os.path.join(CONFIG["data_dir"], "yolo_dataset")
 
 os.makedirs(CONFIG["output_dir"], exist_ok=True)
 
 
 def create_dataset_config():
-    # Prepare output directories
     os.makedirs(os.path.join(CONFIG["output_dir"], "train", "images"), exist_ok=True)
     os.makedirs(os.path.join(CONFIG["output_dir"], "train", "labels"), exist_ok=True)
     os.makedirs(os.path.join(CONFIG["output_dir"], "val", "images"), exist_ok=True)
@@ -36,7 +37,6 @@ def create_dataset_config():
 
     num_images = len(all_images)
 
-    # Shuffle
     random.shuffle(all_images)
 
     # 70% train, 20% validation, 10% test
@@ -85,11 +85,9 @@ def create_dataset_config():
     else:
         print("[INFO] Test files already copied, skipping.")
 
-    # Read classes.txt file
     with open(os.path.join(CONFIG["label_dir"], "classes.txt"), "r") as f:
         classes = [line.strip() for line in f.readlines()]
 
-    # Create YAML configuration file
     dataset_config = {
         'path': CONFIG["output_dir"],
         'train': os.path.join(CONFIG["output_dir"], "train", "images"),
@@ -99,7 +97,6 @@ def create_dataset_config():
         'nc': len(classes)
     }
 
-    # Save to YAML file
     config_path = os.path.join(CONFIG["output_dir"], "dataset.yaml")
     with open(config_path, "w") as f:
         yaml.dump(dataset_config, f)
@@ -110,7 +107,6 @@ def create_dataset_config():
 
 
 def train_model():
-    # Create dataset configuration
     config_path, classes = create_dataset_config()
 
     model_folder = os.path.join('runs', 'detect')
@@ -130,10 +126,10 @@ def train_model():
 
     model.train(
         data=config_path,
-        epochs=50,
-        imgsz=640,
-        batch=4,
-        workers=6,
+        epochs=CONFIG["epochs"],
+        imgsz=CONFIG["image_size"],
+        batch=2,
+        workers=4,
         device='cuda',
         name=model_name,
         exist_ok=True,
@@ -141,7 +137,7 @@ def train_model():
 
         augment=True,  # Random augmentation active
         mosaic=1.0,  # Mosaic augmentation (resistance to background noise)
-        mixup=0.3,  # Mixup (clarifies class boundaries)
+        mixup=0.3,  # Mix-up (clarifies class boundaries)
         hsv_h=0.02,  # Hue augmentation (enhances class discrimination)
         hsv_s=0.8,  # Saturation augmentation
         hsv_v=0.5,  # Brightness augmentation
@@ -161,7 +157,6 @@ def train_model():
         patience=10  # Early stopping patience (prevent overfitting)
     )
 
-    # Save class names to a file (for evaluate_model.py)
     with open(os.path.join(CONFIG["output_dir"], "classes.txt"), "w") as f:
         for class_name in classes:
             f.write(f"{class_name}\n")
@@ -171,7 +166,7 @@ def train_model():
 
 def main():
     print("[INFO] Pollen vs Varroa Object Detection - Model Training")
-    print(f"[INFO] Current directory: {CONFIG['current_dir']}")
+    print(f"[INFO] Current directory: {CURRENT_DIR}")
     print(f"[INFO] Data directory: {CONFIG['data_dir']}")
     print(f"[INFO] Output directory: {CONFIG['output_dir']}")
 
