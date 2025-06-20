@@ -1,0 +1,140 @@
+# Model Comparison Debug Information
+
+## pollen_varroa_model_50_320_pre
+
+### Sample 1: d75e61261a6635dc52159f2a6a68f832.jpg
+  Image size: (640, 640)
+  Ground truth boxes: 1
+    GT 1: Class 1, Box: [0.8703, 0.3289, 0.9281, 0.3805]
+  Predictions: 0
+
+### Sample 2: 252bfc4f54b891da322536a7f388961c.jpg
+  Image size: (640, 640)
+  Ground truth boxes: 2
+    GT 1: Class 0, Box: [0.6188, 0.4328, 0.6359, 0.4922]
+    GT 2: Class 0, Box: [0.4281, 0.3609, 0.4766, 0.4359]
+  Predictions: 1
+    Pred 1: Class 0, Conf: 0.6171, Box: [276.3441, 228.6315, 313.4689, 284.2200]
+
+  Matching details:
+    Prediction 1:
+      Class: 0, Conf: 0.6171
+      Box: [276.3441, 228.6315, 313.4689, 284.2200]
+      Best IoU: 0.6320, Matched: True
+      All IoUs: 2
+        GT 1: Class 0, IoU: 0.6320
+        GT 0: Class 0, IoU: 0.0000
+
+### Sample 3: 0827091621dfc17a54647bba4027c972.jpg
+  Image size: (400, 266)
+  Ground truth boxes: 0
+  Predictions: 1
+    Pred 1: Class 0, Conf: 0.6709, Box: [250.4830, 119.6142, 276.4762, 146.1918]
+
+### Sample 4: f9cf395e21cdb1edeea330467dd0ce63.jpg
+  Image size: (640, 640)
+  Ground truth boxes: 1
+    GT 1: Class 0, Box: [0.8547, 0.6156, 0.9984, 0.8016]
+  Predictions: 0
+
+### Sample 5: 5ded71d67804e76d26cb2f7cc39e5323.jpg
+  Image size: (320, 213)
+  Ground truth boxes: 0
+  Predictions: 1
+    Pred 1: Class 0, Conf: 0.5237, Box: [96.3395, 91.8744, 111.9432, 116.6837]
+
+## pollen_varroa_model_50_448_pre
+
+### Sample 1: d75e61261a6635dc52159f2a6a68f832.jpg
+  Image size: (640, 640)
+  Ground truth boxes: 1
+    GT 1: Class 1, Box: [0.8703, 0.3289, 0.9281, 0.3805]
+  Predictions: 1
+    Pred 1: Class 1, Conf: 0.7087, Box: [556.5637, 211.8540, 589.6252, 239.2815]
+
+  Matching details:
+    Prediction 1:
+      Class: 1, Conf: 0.7087
+      Box: [556.5637, 211.8540, 589.6252, 239.2815]
+      Best IoU: 0.7258, Matched: True
+      All IoUs: 1
+        GT 0: Class 1, IoU: 0.7258
+
+### Sample 2: 252bfc4f54b891da322536a7f388961c.jpg
+  Image size: (640, 640)
+  Ground truth boxes: 2
+    GT 1: Class 0, Box: [0.6188, 0.4328, 0.6359, 0.4922]
+    GT 2: Class 0, Box: [0.4281, 0.3609, 0.4766, 0.4359]
+  Predictions: 1
+    Pred 1: Class 0, Conf: 0.5982, Box: [274.6894, 226.2996, 316.0637, 284.1933]
+
+  Matching details:
+    Prediction 1:
+      Class: 0, Conf: 0.5982
+      Box: [274.6894, 226.2996, 316.0637, 284.1933]
+      Best IoU: 0.5991, Matched: True
+      All IoUs: 2
+        GT 1: Class 0, IoU: 0.5991
+        GT 0: Class 0, IoU: 0.0000
+
+### Sample 3: 0827091621dfc17a54647bba4027c972.jpg
+  Image size: (400, 266)
+  Ground truth boxes: 0
+  Predictions: 1
+    Pred 1: Class 0, Conf: 0.6961, Box: [250.4287, 118.8748, 277.9464, 145.8929]
+
+### Sample 4: f9cf395e21cdb1edeea330467dd0ce63.jpg
+  Image size: (640, 640)
+  Ground truth boxes: 1
+    GT 1: Class 0, Box: [0.8547, 0.6156, 0.9984, 0.8016]
+  Predictions: 0
+
+### Sample 5: 5ded71d67804e76d26cb2f7cc39e5323.jpg
+  Image size: (320, 213)
+  Ground truth boxes: 0
+  Predictions: 1
+    Pred 1: Class 0, Conf: 0.4992, Box: [94.5073, 92.3833, 113.9771, 118.2290]
+
+## pollen_varroa_model_50_640_pre
+
+### Sample 1: d75e61261a6635dc52159f2a6a68f832.jpg
+  Image size: (640, 640)
+  Ground truth boxes: 1
+    GT 1: Class 1, Box: [0.8703, 0.3289, 0.9281, 0.3805]
+  Predictions: 0
+
+### Sample 2: 252bfc4f54b891da322536a7f388961c.jpg
+  Image size: (640, 640)
+  Ground truth boxes: 2
+    GT 1: Class 0, Box: [0.6188, 0.4328, 0.6359, 0.4922]
+    GT 2: Class 0, Box: [0.4281, 0.3609, 0.4766, 0.4359]
+  Predictions: 1
+    Pred 1: Class 0, Conf: 0.5967, Box: [275.6288, 227.5906, 311.6060, 284.1325]
+
+  Matching details:
+    Prediction 1:
+      Class: 0, Conf: 0.5967
+      Box: [275.6288, 227.5906, 311.6060, 284.1325]
+      Best IoU: 0.6674, Matched: True
+      All IoUs: 2
+        GT 1: Class 0, IoU: 0.6674
+        GT 0: Class 0, IoU: 0.0000
+
+### Sample 3: 0827091621dfc17a54647bba4027c972.jpg
+  Image size: (400, 266)
+  Ground truth boxes: 0
+  Predictions: 1
+    Pred 1: Class 0, Conf: 0.6862, Box: [249.7497, 119.7196, 277.1353, 145.8973]
+
+### Sample 4: f9cf395e21cdb1edeea330467dd0ce63.jpg
+  Image size: (640, 640)
+  Ground truth boxes: 1
+    GT 1: Class 0, Box: [0.8547, 0.6156, 0.9984, 0.8016]
+  Predictions: 0
+
+### Sample 5: 5ded71d67804e76d26cb2f7cc39e5323.jpg
+  Image size: (320, 213)
+  Ground truth boxes: 0
+  Predictions: 1
+    Pred 1: Class 0, Conf: 0.5010, Box: [94.8942, 92.4401, 113.8856, 117.8012]
+

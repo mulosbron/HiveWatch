@@ -1,0 +1,136 @@
+# Model Comparison Debug Information
+
+## bee_wasp_model_50_320_pre
+
+### Sample 1: e08f0614069b31e6d43a3cf7948b221b.jpeg
+  Image size: (150, 300)
+  Ground truth boxes: 1
+    GT 1: Class 0, Box: [0.1333, 0.1333, 0.8933, 0.6733]
+  Predictions: 1
+    Pred 1: Class 0, Conf: 0.7109, Box: [21.5478, 35.0993, 126.3215, 251.4400]
+
+  Matching details:
+    Prediction 1:
+      Class: 0, Conf: 0.7109
+      Box: [21.5478, 35.0993, 126.3215, 251.4400]
+      Best IoU: 0.7025, Matched: True
+      All IoUs: 1
+        GT 0: Class 0, IoU: 0.7025
+
+### Sample 2: 43585901c041cabdeae34b39e74682d3.jpg
+  Image size: (400, 249)
+  Ground truth boxes: 1
+    GT 1: Class 1, Box: [0.3450, 0.3896, 0.5425, 0.7631]
+  Predictions: 1
+    Pred 1: Class 1, Conf: 0.7231, Box: [137.0885, 96.9859, 215.9104, 190.0429]
+
+  Matching details:
+    Prediction 1:
+      Class: 1, Conf: 0.7231
+      Box: [137.0885, 96.9859, 215.9104, 190.0429]
+      Best IoU: 0.9744, Matched: True
+      All IoUs: 1
+        GT 0: Class 1, IoU: 0.9744
+
+### Sample 3: 0f23280edfba192252bdc0a21bf20d04.jpg
+  Image size: (240, 219)
+  Ground truth boxes: 1
+    GT 1: Class 1, Box: [0.3917, 0.2968, 0.6750, 0.6986]
+  Predictions: 1
+    Pred 1: Class 1, Conf: 0.6194, Box: [98.4409, 69.0025, 141.6375, 149.4855]
+
+  Matching details:
+    Prediction 1:
+      Class: 1, Conf: 0.6194
+      Box: [98.4409, 69.0025, 141.6375, 149.4855]
+      Best IoU: 0.5810, Matched: True
+      All IoUs: 1
+        GT 0: Class 1, IoU: 0.5810
+
+### Sample 4: aa57191ab207a6b644fa02c4afb7dc52.jpg
+  Image size: (640, 640)
+  Ground truth boxes: 1
+    GT 1: Class 1, Box: [0.4589, 0.2653, 0.6475, 0.3996]
+  Predictions: 1
+    Pred 1: Class 1, Conf: 0.6962, Box: [297.6754, 171.3472, 413.5779, 247.5819]
+
+  Matching details:
+    Prediction 1:
+      Class: 1, Conf: 0.6962
+      Box: [297.6754, 171.3472, 413.5779, 247.5819]
+      Best IoU: 0.8522, Matched: True
+      All IoUs: 1
+        GT 0: Class 1, IoU: 0.8522
+
+### Sample 5: 96c8c8bd4f60a4fe6c94eb1c73d824fe.jpg
+  Image size: (640, 480)
+  Ground truth boxes: 0
+  Predictions: 0
+
+## bee_wasp_model_50_640_pre
+
+### Sample 1: e08f0614069b31e6d43a3cf7948b221b.jpeg
+  Image size: (150, 300)
+  Ground truth boxes: 1
+    GT 1: Class 0, Box: [0.1333, 0.1333, 0.8933, 0.6733]
+  Predictions: 1
+    Pred 1: Class 0, Conf: 0.6676, Box: [23.6640, 38.4380, 128.1356, 254.1356]
+
+  Matching details:
+    Prediction 1:
+      Class: 0, Conf: 0.6676
+      Box: [23.6640, 38.4380, 128.1356, 254.1356]
+      Best IoU: 0.7029, Matched: True
+      All IoUs: 1
+        GT 0: Class 0, IoU: 0.7029
+
+### Sample 2: 43585901c041cabdeae34b39e74682d3.jpg
+  Image size: (400, 249)
+  Ground truth boxes: 1
+    GT 1: Class 1, Box: [0.3450, 0.3896, 0.5425, 0.7631]
+  Predictions: 1
+    Pred 1: Class 1, Conf: 0.8015, Box: [136.9225, 96.4099, 217.5171, 189.6546]
+
+  Matching details:
+    Prediction 1:
+      Class: 1, Conf: 0.8015
+      Box: [136.9225, 96.4099, 217.5171, 189.6546]
+      Best IoU: 0.9705, Matched: True
+      All IoUs: 1
+        GT 0: Class 1, IoU: 0.9705
+
+### Sample 3: 0f23280edfba192252bdc0a21bf20d04.jpg
+  Image size: (240, 219)
+  Ground truth boxes: 1
+    GT 1: Class 1, Box: [0.3917, 0.2968, 0.6750, 0.6986]
+  Predictions: 1
+    Pred 1: Class 1, Conf: 0.6009, Box: [103.7777, 70.0370, 142.9163, 150.9702]
+
+  Matching details:
+    Prediction 1:
+      Class: 1, Conf: 0.6009
+      Box: [103.7777, 70.0370, 142.9163, 150.9702]
+      Best IoU: 0.5293, Matched: True
+      All IoUs: 1
+        GT 0: Class 1, IoU: 0.5293
+
+### Sample 4: aa57191ab207a6b644fa02c4afb7dc52.jpg
+  Image size: (640, 640)
+  Ground truth boxes: 1
+    GT 1: Class 1, Box: [0.4589, 0.2653, 0.6475, 0.3996]
+  Predictions: 1
+    Pred 1: Class 1, Conf: 0.7468, Box: [296.4904, 172.7365, 413.4258, 248.6582]
+
+  Matching details:
+    Prediction 1:
+      Class: 1, Conf: 0.7468
+      Box: [296.4904, 172.7365, 413.4258, 248.6582]
+      Best IoU: 0.8563, Matched: True
+      All IoUs: 1
+        GT 0: Class 1, IoU: 0.8563
+
+### Sample 5: 96c8c8bd4f60a4fe6c94eb1c73d824fe.jpg
+  Image size: (640, 480)
+  Ground truth boxes: 0
+  Predictions: 0
+

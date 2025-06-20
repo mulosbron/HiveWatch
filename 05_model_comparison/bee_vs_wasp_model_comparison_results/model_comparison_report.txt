@@ -1,0 +1,92 @@
+# YOLO Model Comparison Report
+
+Date: 2025-06-20 20:21:03
+Number of test samples: 500
+Confidence threshold: 0.45
+IoU threshold for matching: 0.15
+
+## Models Evaluated
+
+1. C:\Users\duggy\OneDrive\Belgeler\Github\HiveWatch\05_model_comparison\..\03_model_training\runs\detect\bee_wasp_model_50_320_pre\weights\best.pt
+2. C:\Users\duggy\OneDrive\Belgeler\Github\HiveWatch\05_model_comparison\..\03_model_training\runs\detect\bee_wasp_model_50_640_pre\weights\best.pt
+
+## Overall Results Summary
+
+| Metric | bee_wasp_model_50_320_pre | bee_wasp_model_50_640_pre |
+|----------|------------|------------|
+| Detection Precision | 0.9329 | 0.9320 | 
+| Detection Recall | 0.7307 | 0.6979 | 
+| Detection F1-Score | 0.8195 | 0.7981 | 
+| Classification Accuracy | 0.9820 | 0.9671 | 
+| Class Match Rate | 0.9820 | 0.9671 | 
+| mAP Score | 0.9823 | 0.9697 | 
+| Average IoU | 0.8113 | 0.8154 | 
+| Avg Inference Time (ms) | 34.19 ms | 24.80 ms | 
+
+## Detailed Results for bee_wasp_model_50_320_pre
+
+### Confusion Matrix
+
+```
+             | Pred Bee | Pred Wasp |
+True Bee (0) |       185 |         3 |
+True Wasp (1)|         5 |       252 |
+```
+
+### Class-specific Metrics
+
+```
+           | Bee (0)  | Wasp (1) |
+Precision  | 0.9737 | 0.9882 |
+Recall     | 0.9840 | 0.9805 |
+F1-Score   | 0.9788 | 0.9844 |
+```
+
+### Detection Counts
+
+- True Positives: 445
+- False Positives: 32
+- False Negatives: 164
+
+## Detailed Results for bee_wasp_model_50_640_pre
+
+### Confusion Matrix
+
+```
+             | Pred Bee | Pred Wasp |
+True Bee (0) |       181 |         2 |
+True Wasp (1)|        12 |       230 |
+```
+
+### Class-specific Metrics
+
+```
+           | Bee (0)  | Wasp (1) |
+Precision  | 0.9378 | 0.9914 |
+Recall     | 0.9891 | 0.9504 |
+F1-Score   | 0.9628 | 0.9705 |
+```
+
+### Detection Counts
+
+- True Positives: 425
+- False Positives: 31
+- False Negatives: 184
+
+## Conclusion
+
+- Best model for overall detection (F1): bee_wasp_model_50_320_pre
+- Best model for classification accuracy: bee_wasp_model_50_320_pre
+- Best model for detection precision (IoU): bee_wasp_model_50_640_pre
+- Fastest model: bee_wasp_model_50_640_pre
+
+## Debug Notes
+
+This evaluation was run with DEBUG=True. Check the debug_info.txt file for detailed information.
+Common issues with model evaluation:
+1. Coordinate format mismatch: YOLO uses normalized coordinates, but model may output pixel coordinates
+2. IoU threshold too high: If boxes don't overlap enough, they won't match
+3. Label paths incorrect: Make sure the ground truth label files are correctly paired with images
+4. Class ID mismatch: Ensure that class IDs match between predictions and ground truth
+
+Please refer to the generated visualization files for more detailed comparisons.

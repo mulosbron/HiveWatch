@@ -15,19 +15,18 @@ CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 CONFIG = {
     "model_paths": [
-        os.path.join(CURRENT_DIR, "..", "04_model_training", "runs", "detect", "bee_wasp_model_150_384", "weights", "best.pt"),
-        os.path.join(CURRENT_DIR, "..", "04_model_training", "runs", "detect", "bee_wasp_model_75_384", "weights", "best.pt"),
-        os.path.join(CURRENT_DIR, "..", "04_model_training", "runs", "detect", "bee_wasp_model_75_640", "weights", "best.pt"),
-        os.path.join(CURRENT_DIR, "..", "04_model_training", "runs", "detect", "bee_wasp_model_50_512", "weights", "best.pt"),
-        os.path.join(CURRENT_DIR, "..", "04_model_training", "runs", "detect", "bee_wasp_model_50_448", "weights", "best.pt"),
+        # os.path.join(CURRENT_DIR, "..", "03_model_training", "runs", "detect", "pollen_varroa_model_50_320", "weights", "best.pt"),
+        os.path.join(CURRENT_DIR, "..", "03_model_training", "runs", "detect", "pollen_varroa_model_50_320_pre", "weights", "best.pt"),
+        os.path.join(CURRENT_DIR, "..", "03_model_training", "runs", "detect", "pollen_varroa_model_50_448_pre", "weights", "best.pt"),
+        os.path.join(CURRENT_DIR, "..", "03_model_training", "runs", "detect", "pollen_varroa_model_50_640_pre", "weights", "best.pt"),
     ],
-    "data_dir": os.path.join(CURRENT_DIR, "..", "03_custom_dataset", "bee_vs_wasp_yolo"),
+    "data_dir": os.path.join(CURRENT_DIR, "..", "02_custom_dataset", "pollen_vs_varroa_yolo"),
     "num_samples": 500,
     "conf_threshold": 0.45,
     "iou_threshold": 0.15,
     "debug": True,
     "debug_sample_size": 5,
-    "output_dir": os.path.join(CURRENT_DIR, "model_comparison_results"),
+    "output_dir": os.path.join(CURRENT_DIR, "pollen_vs_varroa_model_comparison_results"),
 }
 
 CONFIG["images_dir"] = os.path.join(CONFIG["data_dir"], "images")
@@ -554,7 +553,7 @@ def visualize_results(results):
     if len(model_names) == 1:
         axes = [axes]
 
-    class_labels = ['Bee (0)', 'Wasp (1)']
+    class_labels = ['Pollen (0)', 'Varroa (1)']
 
     for i, model in enumerate(model_names):
         cm = results[model]['confusion_matrix']
@@ -671,7 +670,7 @@ def visualize_results(results):
             wasp_incorrect = class_data.get(1, {}).get(0, 0) if 0 in class_data.get(1, {}) else 0
 
             data = [bee_correct, bee_incorrect, wasp_correct, wasp_incorrect]
-            labels = ['Bee→Bee', 'Bee→Wasp', 'Wasp→Wasp', 'Wasp→Bee']
+            labels = ['Pollen→Pollen', 'Pollen→Varroa', 'Varroa→Varroa', 'Varroa→Pollen']
             colors = ['green', 'red', 'blue', 'orange']
 
             if sum(data) > 0:
@@ -742,14 +741,14 @@ def save_summary_report(results, sample_images):
             f.write("### Confusion Matrix\n\n")
             cm = results[model_name]['confusion_matrix']
             f.write("```\n")
-            f.write(f"             | Pred Bee | Pred Wasp |\n")
-            f.write(f"True Bee (0) | {int(cm[0, 0]):9d} | {int(cm[0, 1]):9d} |\n")
-            f.write(f"True Wasp (1)| {int(cm[1, 0]):9d} | {int(cm[1, 1]):9d} |\n")
+            f.write(f"             | Pred Pollen | Pred Varroa |\n")
+            f.write(f"True Pollen (0) | {int(cm[0, 0]):9d} | {int(cm[0, 1]):9d} |\n")
+            f.write(f"True Varroa (1)| {int(cm[1, 0]):9d} | {int(cm[1, 1]):9d} |\n")
             f.write("```\n\n")
 
             f.write("### Class-specific Metrics\n\n")
             f.write("```\n")
-            f.write(f"           | Bee (0)  | Wasp (1) |\n")
+            f.write(f"           | Pollen (0)  | Varroa (1) |\n")
             f.write(
                 f"Precision  | {results[model_name]['class_precision'][0]:.4f} | {results[model_name]['class_precision'][1]:.4f} |\n")
             f.write(
